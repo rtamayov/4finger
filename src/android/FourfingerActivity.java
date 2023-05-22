@@ -60,7 +60,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class FourfingerActivity extends Activity  {
+public class FourfingerActivity extends Activity {
+
     private IVeridiumSDK mBiometricSDK;
 
     // operation strings
@@ -70,11 +71,11 @@ public class FourfingerActivity extends Activity  {
     private static final int REQUEST_AUTH = 334;
 
     private String package_name;
-	private Resources resources;
+    private Resources resources;
 
     private AlertDialog dialog_permissions;
 
-    private static final String[] requiredPermissions = new String[]{
+    private static final String[] requiredPermissions = new String[] {
             Manifest.permission.CAMERA,
             Manifest.permission.INTERNET
     };
@@ -93,8 +94,7 @@ public class FourfingerActivity extends Activity  {
 
     private int BestFingerRight;
     private int BestFingerLeft;
-  	private boolean Liveness;
-
+    private boolean Liveness;
 
     private String TAG = "FourfingerActivity";
 
@@ -105,18 +105,17 @@ public class FourfingerActivity extends Activity  {
 
         setContentView(getResourceId("layout/activity_fourfinger"));
 
-        Log.d(TAG,"On create");
+        Log.d(TAG, "On create");
 
-	
-        BestFingerRight = getIntent().getIntExtra("RightFinger",0);
-        BestFingerLeft = getIntent().getIntExtra("LeftFinger",0);
-      	Liveness = getIntent().getBooleanExtra("Liveness", false);
-	    
-        Log.d(TAG,"intent got. Left " + String.valueOf(BestFingerLeft) + "Right " + String.valueOf(BestFingerRight) );
+        BestFingerRight = getIntent().getIntExtra("RightFinger", 0);
+        BestFingerLeft = getIntent().getIntExtra("LeftFinger", 0);
+        Liveness = getIntent().getBooleanExtra("Liveness", false);
+
+        Log.d(TAG, "intent got. Left " + String.valueOf(BestFingerLeft) + "Right " + String.valueOf(BestFingerRight));
 
         preInitSDK();
 
-        if(initSDK()){
+        if (initSDK()) {
 
             configureExportSettings();
 
@@ -126,9 +125,9 @@ public class FourfingerActivity extends Activity  {
 
         if (Build.VERSION.SDK_INT > 22) {
 
-            Log.d(TAG,"Requesting Permissions");
+            Log.d(TAG, "Requesting Permissions");
             checkPermissions(requiredPermissions);
-        }else{
+        } else {
 
             abrir4Finger();
         }
@@ -141,8 +140,7 @@ public class FourfingerActivity extends Activity  {
         List<String> ungranted = new ArrayList<String>();
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(this,
-                    permission)
-                    != PackageManager.PERMISSION_GRANTED) {
+                    permission) != PackageManager.PERMISSION_GRANTED) {
                 ungranted.add(permission);
             }
         }
@@ -151,15 +149,16 @@ public class FourfingerActivity extends Activity  {
             ActivityCompat.requestPermissions(this,
                     ungranted.toArray(new String[0]),
                     REQUEST_APP_PREF);
-        }else{
-            Log.d(TAG,"hasPermissions");
+        } else {
+            Log.d(TAG, "hasPermissions");
             abrir4Finger();
         }
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
 
-        Log.d(TAG,"onRequestPermissionsResult");
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+        Log.d(TAG, "onRequestPermissionsResult");
         Boolean hasAllPermissions = true;
         for (int r : grantResults) {
             if (r != PackageManager.PERMISSION_GRANTED) {
@@ -169,16 +168,17 @@ public class FourfingerActivity extends Activity  {
             }
         }
 
-        if(hasAllPermissions){
+        if (hasAllPermissions) {
 
-            Log.d(TAG,"hasAllPermissions");
+            Log.d(TAG, "hasAllPermissions");
             abrir4Finger();
         }
 
     }
+
     private void showDeniedPermissionsDialog() {
 
-        Log.d(TAG,"showDeniedPermissionsDialog");
+        Log.d(TAG, "showDeniedPermissionsDialog");
         if (dialog_permissions != null) {
             if (dialog_permissions.isShowing()) {
                 return;
@@ -186,36 +186,37 @@ public class FourfingerActivity extends Activity  {
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Esta aplicación requiere los permisos solicitados. Por favor, acéptelos a en la configuración de Android.")
+        builder.setMessage(
+                "Esta aplicación requiere los permisos solicitados. Por favor, acéptelos a en la configuración de Android.")
                 .setCancelable(false)
                 .setPositiveButton("OK", (dialog, id) -> finish());
         dialog_permissions = builder.create();
         dialog_permissions.show();
     }
 
-    private void abrir4Finger(){
+    private void abrir4Finger() {
 
-        Log.d(TAG,"Abrir 4Finger!");
+        Log.d(TAG, "Abrir 4Finger!");
 
         if (mBiometricSDK != null) {
 
             Intent exportIntent = mBiometricSDK.export(FourFInterface.UID);
             startActivityForResult(exportIntent, REQUEST_EXPORT);
 
-        }else{
+        } else {
             ToastHelper.showMessage(FourfingerActivity.this, "Licence is invalid!");
             Log.e(TAG, "IVeridiumSDK object not initialised");
         }
 
     }
 
-    private int getResourceId (String typeAndName)
-    {
-        if(package_name == null) package_name = getApplication().getPackageName();
-        if(resources == null) resources = getApplication().getResources();
+    private int getResourceId(String typeAndName) {
+        if (package_name == null)
+            package_name = getApplication().getPackageName();
+        if (resources == null)
+            resources = getApplication().getResources();
         return resources.getIdentifier(typeAndName, null, package_name);
     }
-
 
     /*
      * Initialise the SDK and ensure the licence is valid.
@@ -234,63 +235,68 @@ public class FourfingerActivity extends Activity  {
 
     /*
      * Configure Export settings using ExportConfig
-     * Capture either hand, JSON container format, PNG with multiple scales, liveness on
+     * Capture either hand, JSON container format, PNG with multiple scales,
+     * liveness on
      */
-    private void configureExportSettings(){
-                
+    private void configureExportSettings() {
+
         ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_JSON);
-                   
+
         if (BestFingerRight == RIGHT_THUMB) {
             ExportConfig.setFingersToCapture(Arrays.asList(ExportConfig.FingerID.THUMB_RIGHT));
 
         } else if (BestFingerLeft == LEFT_THUMB) {
             ExportConfig.setFingersToCapture(Arrays.asList(ExportConfig.FingerID.THUMB_LEFT));
-        
-        } else if (BestFingerRight == RIGHT_INDEX || BestFingerRight == RIGHT_MIDDLE || BestFingerRight == RIGHT_RING || BestFingerRight == RIGHT_PINKY){
+
+        } else if (BestFingerRight == RIGHT_INDEX || BestFingerRight == RIGHT_MIDDLE || BestFingerRight == RIGHT_RING
+                || BestFingerRight == RIGHT_PINKY) {
             ExportConfig.setFingersToCapture(ExportConfig.ExportMode.FOUR_F_RIGHT_ENFORCED);
 
-        } else if (BestFingerLeft == LEFT_INDEX || BestFingerLeft == LEFT_MIDDLE || BestFingerLeft == LEFT_RING || BestFingerLeft == LEFT_PINKY){
+        } else if (BestFingerLeft == LEFT_INDEX || BestFingerLeft == LEFT_MIDDLE || BestFingerLeft == LEFT_RING
+                || BestFingerLeft == LEFT_PINKY) {
             ExportConfig.setFingersToCapture(ExportConfig.ExportMode.FOUR_F_LEFT_ENFORCED);
-    
+
         }
 
         /*
-        ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_JSON);
-        ExportConfig.setFixedPrintSize(512, 512);
-        ExportConfig.setWSQCompressionBitrate(0.5F);
-        ExportConfig.setPack_raw(false);
-        ExportConfig.setPack_wsq(true);
-        ExportConfig.setPack_png(false);
-        ExportConfig.setUseLiveness(true);
-        //ExportConfig.setLivenessFactor(99);
-        ExportConfig.setPackAuditImage(true);
-        ExportConfig.setPackDebugInfo(false);
-        ExportConfig.setUseNistType4(true);
-        */
+         * ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_JSON);
+         * ExportConfig.setFixedPrintSize(512, 512);
+         * ExportConfig.setWSQCompressionBitrate(0.5F);
+         * ExportConfig.setPack_raw(false);
+         * ExportConfig.setPack_wsq(true);
+         * ExportConfig.setPack_png(false);
+         * ExportConfig.setUseLiveness(true);
+         * //ExportConfig.setLivenessFactor(99);
+         * ExportConfig.setPackAuditImage(true);
+         * ExportConfig.setPackDebugInfo(false);
+         * ExportConfig.setUseNistType4(true);
+         */
 
-        //ExportConfig.setActiveLivenessBeta(false);
-      	ExportConfig.setActiveLivenessBeta(Liveness);
+        // ExportConfig.setActiveLivenessBeta(false);
+        ExportConfig.setActiveLivenessBeta(Liveness);
         ExportConfig.setLivenessFactor(99);
         ExportConfig.setPack_bmp(false);
         ExportConfig.setPack_png(false);
         ExportConfig.setPack_raw(false);
         ExportConfig.setPack_wsq(true);
         ExportConfig.setPackExtraScale(true);
-      	ExportConfig.setFixedPrintSize(512, 512);
-        ExportConfig.setUseLiveness(true);       
+        ExportConfig.setFixedPrintSize(512, 512);
+        ExportConfig.setUseLiveness(true);
         ExportConfig.setCalculate_NFIQ(true);
         ExportConfig.setUseNistType4(false);
-        ExportConfig.setPackDebugInfo(true); 
+        ExportConfig.setPackDebugInfo(true);
         ExportConfig.setPackAuditImage(true);
-        
+        ExportConfig.configureTimeout(true, true, 60, 3);
         /*
-        ExportConfig.setWSQCompressRatio(ExportConfig.WSQCompressRatio.COMPRESS_10to1);
-        ExportConfig.setFixedPrintSize(0,0);
-        */
+         * ExportConfig.setWSQCompressRatio(ExportConfig.WSQCompressRatio.COMPRESS_10to1
+         * );
+         * ExportConfig.setFixedPrintSize(0,0);
+         */
     }
 
-
-    /* A custom IBiometricResultsHandler, handles the resulting data from an operation
+    /*
+     * A custom IBiometricResultsHandler, handles the resulting data from an
+     * operation
      */
     IBiometricResultsHandler resultHandler = new IBiometricResultsHandler() {
         @Override
@@ -298,10 +304,9 @@ public class FourfingerActivity extends Activity  {
             ToastHelper.showMessage(FourfingerActivity.this, "Escaneo Exitoso");
             // Handle exported templates here
             if (results != null && results.size() > 0) {
-                ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL MAYO", "Veridium", "Captura", "Success");
-            }
-            else {
-                ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL MAYO", "Veridium", "Captura", "Review");
+                ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL AA", "Veridium", "Captura", "Success");
+            } else {
+                ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL AA", "Veridium", "Captura", "Review");
             }
 
             byte[] template = null;
@@ -311,7 +316,7 @@ public class FourfingerActivity extends Activity  {
 
                 String templateString;
 
-                if(bio_key.equals(FourFInterface.UID)){
+                if (bio_key.equals(FourFInterface.UID)) {
                     // template data is contained with the first element
                     template = data[1];
 
@@ -327,7 +332,7 @@ public class FourfingerActivity extends Activity  {
             Intent i = new Intent();
             i.putExtra("status", "Escaneo Fallido");
             setResult(Activity.RESULT_CANCELED, i);
-            ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL MAYO", "Veridium", "Capture", "Error");
+            ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL AA", "Veridium", "Capture", "Error");
             finish();
         }
 
@@ -338,7 +343,7 @@ public class FourfingerActivity extends Activity  {
             Intent i = new Intent();
             i.putExtra("status", "Escaneo Cancelado");
             setResult(Activity.RESULT_CANCELED, i);
-            ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL MAYO", "Veridium", "Capture", "Cancel");
+            ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL AA", "Veridium", "Capture", "Cancel");
             finish();
         }
 
@@ -349,53 +354,47 @@ public class FourfingerActivity extends Activity  {
             Intent i = new Intent();
             i.putExtra("status", "Escaneo Erroneo");
             setResult(Activity.RESULT_CANCELED, i);
-            ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL MAYO", "Veridium", "Capture", "Error" + message);
+            ISVeridiumTracker.trackEvent(getApplicationContext(), "ENTEL AA", "Veridium", "Capture", "Error" + message);
             finish();
         }
     };
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        Log.d(TAG,"onActivityResult");
+        Log.d(TAG, "onActivityResult");
 
         if (requestCode == REQUEST_APP_PREF) {
             // do nothing
-        }
-        else if (requestCode == REQUEST_EXPORT ||
-                 requestCode == REQUEST_ENROL ||
-                 requestCode == REQUEST_AUTH ) {
+        } else if (requestCode == REQUEST_EXPORT ||
+                requestCode == REQUEST_ENROL ||
+                requestCode == REQUEST_AUTH) {
             BiometricResultsParser.parse(resultCode, data, resultHandler);
 
-        }
-        else {
+        } else {
             Toast.makeText(this, "Error: unknown request result", Toast.LENGTH_LONG).show();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
-    private void ConvertByteArray(byte[] byteResponse){
+    private void ConvertByteArray(byte[] byteResponse) {
 
         try {
             JSONObject object = new JSONObject(new String(byteResponse));
             JSONObject Scale085 = object.getJSONObject("SCALE085");
             JSONArray fingerprints = Scale085.getJSONArray("Fingerprints");
 
-            //added
+            // added
             JSONObject Scale100 = object.getJSONObject("SCALE100");
             JSONObject auditImage = Scale100.getJSONObject("AuditImage_0");
             String BinaryBase64ObjectObjectJPG = auditImage.getString("BinaryBase64ObjectJPG");
-		
-            
-		
-            int bestFingerI= 0;
-            for(int i=0; i<fingerprints.length(); i++){
+
+            int bestFingerI = 0;
+            for (int i = 0; i < fingerprints.length(); i++) {
                 JSONObject currentFingerprint = fingerprints.getJSONObject(i);
                 int fingerPositionCode = currentFingerprint.getInt("FingerPositionCode");
-                if(fingerPositionCode == BestFingerLeft || fingerPositionCode == BestFingerRight){
+                if (fingerPositionCode == BestFingerLeft || fingerPositionCode == BestFingerRight) {
                     bestFingerI = i;
                     break;
                 }
@@ -406,13 +405,13 @@ public class FourfingerActivity extends Activity  {
             JSONObject fingerImpressionImage = currentFingerprint.getJSONObject("FingerImpressionImage");
 
             String Hand = "";
-            if(fingerPositionCode == LEFT_INDEX || fingerPositionCode == LEFT_MIDDLE ||
+            if (fingerPositionCode == LEFT_INDEX || fingerPositionCode == LEFT_MIDDLE ||
                     fingerPositionCode == LEFT_RING || fingerPositionCode == LEFT_PINKY ||
-                    fingerPositionCode == LEFT_THUMB){
+                    fingerPositionCode == LEFT_THUMB) {
                 Hand = "LEFT";
-            }else if(fingerPositionCode == RIGHT_INDEX || fingerPositionCode == RIGHT_MIDDLE ||
+            } else if (fingerPositionCode == RIGHT_INDEX || fingerPositionCode == RIGHT_MIDDLE ||
                     fingerPositionCode == RIGHT_RING || fingerPositionCode == RIGHT_PINKY ||
-                    fingerPositionCode == RIGHT_THUMB){
+                    fingerPositionCode == RIGHT_THUMB) {
                 Hand = "RIGHT";
             }
 
@@ -425,13 +424,11 @@ public class FourfingerActivity extends Activity  {
             setResult(Activity.RESULT_OK, i);
             finish();
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
-
 
     private void preInitSDK() {
 
@@ -443,14 +440,16 @@ public class FourfingerActivity extends Activity  {
             VeridiumSDK.init(appContext,
                     new DefaultVeridiumSDKModelFactory(appContext),
                     new VeridiumSDKFourFInitializer(fourfLicence),
-                    new VeridiumSDKDataInitializer()
-            );
-        } catch (SDKInitializationException e) {
+                    new VeridiumSDKDataInitializer());
+            // To get VeridiumVersion
+            Log.e("VSDK: ", "" + VeridiumSDK.getSingleton().getVersionName());
+            Log.e("VSDK4F:", "" + FourFIntegrationWrapper.version());
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
 
     private static boolean tienePermisos(Context context, String... permisos) {
         if (context != null && permisos != null) {

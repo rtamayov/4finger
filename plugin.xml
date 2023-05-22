@@ -84,14 +84,20 @@ id="cordova-plugin-entelfingerplugin" version="0.0.1">
     </platform>
 
     <platform name="ios">
-        <hook type="before_compile" src="hooks/edit_build_json.js" />
-       <!--> <hook type="before_plugin_add" src="hooks/valid_architecture_hook.js" />-->
-        <hook type="after_plugin_add" src="hooks/addEmbedded.js" />
+        <!--start new Hook
+      	<hook src="hooks/create-ios-workspaceSettings.js" type="before_plugin_add" />-->
+      	<hook type="before_plugin_add" src="hooks/edit_build_json.js" />
+      	<!--end new Hook-->
+      
+      	<!--<hook type="before_compile" src="hooks/edit_build_json.js" />-->
+        <!--<hook type="before_plugin_add" src="hooks/valid_architecture_hook.js" />-->
+        <hook type="after_plugin_install" src="hooks/addEmbedded.js" />
 
 		<config-file target="config.xml" parent="/*">
 			<feature name="EntelFingerPlugin">
 				<param name="ios-package" value="EntelFingerPlugin" onload="true" />
 			</feature>
+                   
 		<!--<preference name="deployment-target" value="9.0" />
 			<preference name="pods_ios_min_version" value="9.0"/>
 			<preference name="pods_use_frameworks" value="true"/> -->
@@ -103,10 +109,10 @@ id="cordova-plugin-entelfingerplugin" version="0.0.1">
 		<header-file src="src/ios/EntelFingerPlugin.h" />
 		<source-file src="src/ios/EntelFingerPlugin.m" />
 
-        <framework src="src/ios/framework/Veridium4FBiometrics.framework" custom="true" />
+        <framework src="src/ios/framework/Veridium4FBiometrics.framework" custom="true"/>
 	    <framework src="src/ios/framework/VeridiumAnalytics.framework" custom="true" />
-        <framework src="src/ios/framework/VeridiumCore.framework" custom="true"  />
-        <framework src="src/ios/framework/Veridium4FUI.framework" custom="true"  />
+        <framework src="src/ios/framework/VeridiumCore.framework" custom="true" />
+        <framework src="src/ios/framework/Veridium4FUI.framework" custom="true" />
 
 	</platform>
 </plugin>
