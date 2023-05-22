@@ -1,0 +1,22 @@
+{
+  "name": "cordova-plugin-entelfingerplugin",
+  "version": "0.0.1",
+  "description": "Biometric lector plugin 4Finger.",
+  "cordova": {
+    "id": "cordova-plugin-entelfingerplugin",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Everis - Gerson Peralta, Rodrigo Canales ",
+  "license": "MIT",
+  "dependencies": {
+    "xcode": "^2.1.0"
+  }
+}
