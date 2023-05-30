@@ -60,9 +60,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.digitalpersona.uareu.Engine;
-import com.digitalpersona.uareu.UareUGlobal;
-
+import com.digitalpersona.uareu.*;
+import com.loopj.android.http.Base64;
 
 
 public class FourfingerActivity extends Activity {
@@ -105,6 +104,7 @@ public class FourfingerActivity extends Activity {
 
     
     private Engine engine=null;
+    private Fmd fmd=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -418,6 +418,9 @@ public class FourfingerActivity extends Activity {
             JSONObject currentFingerprint = fingerprints.getJSONObject(bestFingerI);
             int fingerPositionCode = currentFingerprint.getInt("FingerPositionCode");
             JSONObject fingerImpressionImage = currentFingerprint.getJSONObject("FingerImpressionImage");
+            
+
+
 
             String Hand = "";
             if (fingerPositionCode == LEFT_INDEX || fingerPositionCode == LEFT_MIDDLE ||
@@ -431,7 +434,16 @@ public class FourfingerActivity extends Activity {
             }
 
             String respuestaWSQ = fingerImpressionImage.getString("BinaryBase64ObjectWSQ");
-			String minutia = "Rk1SACAyMAABlAAz/v8AAAEAAWgAyADIAQAAAFY+QKAAJVRkQIoAO2BhQI4AGqtfQAoAhXheQJgAW1hbQB8AXBZbQEoAX25aQPEAdj9ZgCoAzoNYQDIASnFYgEIAuIVYgE4BLjVYgFoAf3hXQFwASmhWgIQBMTxWgBkATHNUQMwAwTpUQCIBOjVUgHoBWEZUQD0BMDhUgGIA2jNSgIUAfGxSgNgAeUBRgKgA8TtQQJYBPD1QgKYBQKlOgG0Au4lNgJYAtZFMgJwAnV9LQDAA+49LgM0BSk1LQCgAGmtLQD4AW3FKgFYA1o1JQKIAE1VJQIYBITpIQKgBJ0NIQDEAWRBIQFQAf3pHgD4BWDxHQDcAwoVGgIAAoABGQIoBKpdFQEgAVQ1FQKABIZtEgI4AiGpEgEYATWxDQNkAaphCgGIA3zJCQHAARARBgDcAWRJAgOoA/To/QKMA4JI9gGgA9JA9gNMAc0M8QOIA7z46QLAA3T03ALABYEszAJQAdqQyALsA5T8yAKwA2psuAOsA95YtAAA=";
+
+
+            String respuestaRAW = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
+            int widthVeridium = fingerImpressionImage.getInt("Width");
+            int heightVeridium= fingerImpressionImage.getInt("Height");   
+            byte[] rawImage = Base64.decode(rawVeridium, Base64.NO_WRAP);
+
+            fmd = engine.CreateFmd(rawImage,widthVeridium,heightVeridium,500,1,1,Fmd.Format.ANSI_378_2004);
+
+			String minutia = Base64.encodeToString(fmd.getData(), Base64.NO_WRAP);
 
             Intent i = new Intent();
             i.putExtra("base64String", respuestaWSQ);
