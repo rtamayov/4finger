@@ -427,6 +427,7 @@ public class FourfingerActivity extends Activity {
             JSONObject currentFingerprint = fingerprints.getJSONObject(bestFingerI);
             int fingerPositionCode = currentFingerprint.getInt("FingerPositionCode");
             JSONObject fingerImpressionImage = currentFingerprint.getJSONObject("FingerImpressionImage");
+            String fingerImpressionImageRaw = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
 
             String Hand = "";
             if (fingerPositionCode == LEFT_INDEX || fingerPositionCode == LEFT_MIDDLE ||
@@ -441,7 +442,7 @@ public class FourfingerActivity extends Activity {
 
             String respuestaWSQ = fingerImpressionImage.getString("BinaryBase64ObjectWSQ");
 
-            byte[] minArray = Base64.decode(fingerImpressionImage,Base64.NO_WRAP);
+            byte[] minArray = Base64.decode(fingerImpressionImageRaw,Base64.NO_WRAP);
             try {
                 fmd= engine.CreateFmd(minArray,Fmd.Format.ANSI_378_2004);
             } catch (UareUException e) {
