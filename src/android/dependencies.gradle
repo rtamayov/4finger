@@ -34,4 +34,7 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
     }
+	       ndk {
+            abiFilters "armeabi",'arm64-v8a','x86_64'
+        }
 }
