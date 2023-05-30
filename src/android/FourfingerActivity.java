@@ -60,6 +60,10 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.digitalpersona.uareu.UareUGlobal;
+
+private Engine engine=null;
+
 public class FourfingerActivity extends Activity {
 
     private IVeridiumSDK mBiometricSDK;
@@ -112,6 +116,13 @@ public class FourfingerActivity extends Activity {
         Liveness = getIntent().getBooleanExtra("Liveness", false);
 
         Log.d(TAG, "intent got. Left " + String.valueOf(BestFingerLeft) + "Right " + String.valueOf(BestFingerRight));
+
+
+        try {
+            engine = UareUGlobal.GetEngine();
+        } catch (Exception e) {
+
+        }
 
         preInitSDK();
 
