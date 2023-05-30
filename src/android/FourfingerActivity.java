@@ -428,6 +428,7 @@ public class FourfingerActivity extends Activity {
             int fingerPositionCode = currentFingerprint.getInt("FingerPositionCode");
             JSONObject fingerImpressionImage = currentFingerprint.getJSONObject("FingerImpressionImage");
             String fingerImpressionImageRaw = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
+            Log.e("raw: ", "" + fingerImpressionImageRaw);
 
             String Hand = "";
             if (fingerPositionCode == LEFT_INDEX || fingerPositionCode == LEFT_MIDDLE ||
