@@ -60,6 +60,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.digitalpersona.uareu.Engine;
 import com.digitalpersona.uareu.UareUGlobal;
 
 private Engine engine=null;
