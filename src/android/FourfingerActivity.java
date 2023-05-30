@@ -439,7 +439,7 @@ public class FourfingerActivity extends Activity {
             String respuestaRAW = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
             int widthVeridium = fingerImpressionImage.getInt("Width");
             int heightVeridium= fingerImpressionImage.getInt("Height");   
-            byte[] rawImage = Base64.decode(rawVeridium, Base64.NO_WRAP);
+            byte[] rawImage = Base64.decode(respuestaRAW, Base64.NO_WRAP);
 
             fmd = engine.CreateFmd(rawImage,widthVeridium,heightVeridium,500,1,1,Fmd.Format.ANSI_378_2004);
 
