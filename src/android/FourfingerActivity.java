@@ -60,9 +60,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-
-
-
 public class FourfingerActivity extends Activity {
 
     private IVeridiumSDK mBiometricSDK;
@@ -100,7 +97,6 @@ public class FourfingerActivity extends Activity {
     private boolean Liveness;
 
     private String TAG = "FourfingerActivity";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -281,7 +277,7 @@ public class FourfingerActivity extends Activity {
         ExportConfig.setLivenessFactor(99);
         ExportConfig.setPack_bmp(false);
         ExportConfig.setPack_png(false);
-        ExportConfig.setPack_raw(true);
+        ExportConfig.setPack_raw(false);
         ExportConfig.setPack_wsq(true);
         ExportConfig.setPackExtraScale(true);
         ExportConfig.setFixedPrintSize(512, 512);
@@ -407,8 +403,7 @@ public class FourfingerActivity extends Activity {
             JSONObject currentFingerprint = fingerprints.getJSONObject(bestFingerI);
             int fingerPositionCode = currentFingerprint.getInt("FingerPositionCode");
             JSONObject fingerImpressionImage = currentFingerprint.getJSONObject("FingerImpressionImage");
-            String fingerImpressionImageRaw = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
-			
+
             String Hand = "";
             if (fingerPositionCode == LEFT_INDEX || fingerPositionCode == LEFT_MIDDLE ||
                     fingerPositionCode == LEFT_RING || fingerPositionCode == LEFT_PINKY ||
@@ -421,14 +416,13 @@ public class FourfingerActivity extends Activity {
             }
 
             String respuestaWSQ = fingerImpressionImage.getString("BinaryBase64ObjectWSQ");
-
-
+			String minutia = "Rk1SACAyMAABlAAz/v8AAAEAAWgAyADIAQAAAFY+QKAAJVRkQIoAO2BhQI4AGqtfQAoAhXheQJgAW1hbQB8AXBZbQEoAX25aQPEAdj9ZgCoAzoNYQDIASnFYgEIAuIVYgE4BLjVYgFoAf3hXQFwASmhWgIQBMTxWgBkATHNUQMwAwTpUQCIBOjVUgHoBWEZUQD0BMDhUgGIA2jNSgIUAfGxSgNgAeUBRgKgA8TtQQJYBPD1QgKYBQKlOgG0Au4lNgJYAtZFMgJwAnV9LQDAA+49LgM0BSk1LQCgAGmtLQD4AW3FKgFYA1o1JQKIAE1VJQIYBITpIQKgBJ0NIQDEAWRBIQFQAf3pHgD4BWDxHQDcAwoVGgIAAoABGQIoBKpdFQEgAVQ1FQKABIZtEgI4AiGpEgEYATWxDQNkAaphCgGIA3zJCQHAARARBgDcAWRJAgOoA/To/QKMA4JI9gGgA9JA9gNMAc0M8QOIA7z46QLAA3T03ALABYEszAJQAdqQyALsA5T8yAKwA2psuAOsA95YtAAA=";
 
             Intent i = new Intent();
             i.putExtra("base64String", respuestaWSQ);
             i.putExtra("hand", Hand);
             i.putExtra("img", BinaryBase64ObjectObjectJPG);
-			i.putExtra("minutia", fingerImpressionImageRaw);
+			i.putExtra("minutia", minutia);
             setResult(Activity.RESULT_OK, i);
             finish();
 
