@@ -20,8 +20,6 @@ import android.os.Bundle;
 //import android.support.v4.content.ContextCompat;
 
 import android.util.Log;
-//import android.util.Base64;
-import com.loopj.android.http.Base64;
 import android.view.View;
 import android.widget.Toast;
 
@@ -62,17 +60,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.digitalpersona.uareu.Compression;
-import com.digitalpersona.uareu.Engine;
-import com.digitalpersona.uareu.Fid;
-import com.digitalpersona.uareu.Fmd;
-import com.digitalpersona.uareu.Quality;
-import com.digitalpersona.uareu.Reader;
-import com.digitalpersona.uareu.Reader.Priority;
-import com.digitalpersona.uareu.UareUException;
-import com.digitalpersona.uareu.UareUGlobal;
-import com.digitalpersona.uareu.dpfj.CompressionImpl;
-import com.digitalpersona.uareu.jni.DpfjQuality;
+
+
 
 public class FourfingerActivity extends Activity {
 
@@ -112,9 +101,6 @@ public class FourfingerActivity extends Activity {
 
     private String TAG = "FourfingerActivity";
 
-    private Engine engine=null;
-    private Fmd fmd=null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,13 +116,6 @@ public class FourfingerActivity extends Activity {
         Liveness = getIntent().getBooleanExtra("Liveness", false);
 
         Log.d(TAG, "intent got. Left " + String.valueOf(BestFingerLeft) + "Right " + String.valueOf(BestFingerRight));
-
-                // initialize dp sdk
-                try {
-                    engine = UareUGlobal.GetEngine();
-                } catch (Exception e) {
-
-                }
 
         preInitSDK();
 
@@ -428,13 +407,8 @@ public class FourfingerActivity extends Activity {
             JSONObject currentFingerprint = fingerprints.getJSONObject(bestFingerI);
             int fingerPositionCode = currentFingerprint.getInt("FingerPositionCode");
             JSONObject fingerImpressionImage = currentFingerprint.getJSONObject("FingerImpressionImage");
-
-
             String fingerImpressionImageRaw = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
-            int height = fingerImpressionImage.getInt("Height");
-            int width = fingerImpressionImage.getInt("Width");
-            Log.e("raw: ", "" + fingerImpressionImageRaw);
-
+			
             String Hand = "";
             if (fingerPositionCode == LEFT_INDEX || fingerPositionCode == LEFT_MIDDLE ||
                     fingerPositionCode == LEFT_RING || fingerPositionCode == LEFT_PINKY ||
@@ -448,20 +422,13 @@ public class FourfingerActivity extends Activity {
 
             String respuestaWSQ = fingerImpressionImage.getString("BinaryBase64ObjectWSQ");
 
-            byte[] minArray = Base64.decode(fingerImpressionImageRaw,Base64.NO_WRAP);
-            try {
-                fmd= engine.CreateFmd(minArray,width,height,500,1,1,Fmd.Format.ANSI_378_2004);
-            } catch (UareUException e) {
-                Log.e("ERROR",e.getMessage());
-                throw new RuntimeException(e);
-            }
 
-			String minutia = Base64.encodeToString(fmd.getData(),Base64.NO_WRAP);
+
             Intent i = new Intent();
             i.putExtra("base64String", respuestaWSQ);
             i.putExtra("hand", Hand);
             i.putExtra("img", BinaryBase64ObjectObjectJPG);
-			i.putExtra("minutia", minutia);
+			i.putExtra("minutia", fingerImpressionImageRaw);
             setResult(Activity.RESULT_OK, i);
             finish();
 
