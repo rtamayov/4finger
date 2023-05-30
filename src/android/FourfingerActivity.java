@@ -416,11 +416,13 @@ public class FourfingerActivity extends Activity {
             }
 
             String respuestaWSQ = fingerImpressionImage.getString("BinaryBase64ObjectWSQ");
+			String minutia = "Rk1SACAyMAABlAAz/v8AAAEAAWgAyADIAQAAAFY+QKAAJVRkQIoAO2BhQI4AGqtfQAoAhXheQJgAW1hbQB8AXBZbQEoAX25aQPEAdj9ZgCoAzoNYQDIASnFYgEIAuIVYgE4BLjVYgFoAf3hXQFwASmhWgIQBMTxWgBkATHNUQMwAwTpUQCIBOjVUgHoBWEZUQD0BMDhUgGIA2jNSgIUAfGxSgNgAeUBRgKgA8TtQQJYBPD1QgKYBQKlOgG0Au4lNgJYAtZFMgJwAnV9LQDAA+49LgM0BSk1LQCgAGmtLQD4AW3FKgFYA1o1JQKIAE1VJQIYBITpIQKgBJ0NIQDEAWRBIQFQAf3pHgD4BWDxHQDcAwoVGgIAAoABGQIoBKpdFQEgAVQ1FQKABIZtEgI4AiGpEgEYATWxDQNkAaphCgGIA3zJCQHAARARBgDcAWRJAgOoA/To/QKMA4JI9gGgA9JA9gNMAc0M8QOIA7z46QLAA3T03ALABYEszAJQAdqQyALsA5T8yAKwA2psuAOsA95YtAAA=";
 
             Intent i = new Intent();
             i.putExtra("base64String", respuestaWSQ);
             i.putExtra("hand", Hand);
             i.putExtra("img", BinaryBase64ObjectObjectJPG);
+			i.putExtra("minutia", minutia);
             setResult(Activity.RESULT_OK, i);
             finish();
 

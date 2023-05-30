@@ -74,6 +74,7 @@ public class EntelFingerPlugin extends CordovaPlugin {
                 String wsqb64 = (String) data.getExtras().get("base64String");
                 String hand = (String) data.getExtras().get("hand");
 	 	        String img = (String) data.getExtras().get("img");
+				String minutia = (String) data.getExtras().get("minutia");
 
                 JSONObject cordoResponse = new JSONObject();
                 try {
@@ -81,11 +82,13 @@ public class EntelFingerPlugin extends CordovaPlugin {
                     cordoResponse.put("wsq", wsqb64);
                     cordoResponse.put("hand", hand);
                     cordoResponse.put("img", img);
+					cordoResponse.put("minutia", minutia);
 
                     scanCallbackContext.success(cordoResponse);
                     Log.d(TAG, "WsqB64: " + wsqb64);
                     Log.d(TAG, "Hand: " + hand);
 		            Log.d(TAG, "img: " + img);
+					Log.d(TAG, "minutia: " + minutia);
 			  
                 } catch (JSONException e) {
                     scanCallbackContext.error("ERROR");
