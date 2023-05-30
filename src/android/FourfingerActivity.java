@@ -63,7 +63,7 @@ import androidx.core.content.ContextCompat;
 import com.digitalpersona.uareu.Engine;
 import com.digitalpersona.uareu.UareUGlobal;
 
-private Engine engine=null;
+
 
 public class FourfingerActivity extends Activity {
 
@@ -102,6 +102,9 @@ public class FourfingerActivity extends Activity {
     private boolean Liveness;
 
     private String TAG = "FourfingerActivity";
+
+    
+    private Engine engine=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
