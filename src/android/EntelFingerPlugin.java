@@ -44,7 +44,7 @@ public class EntelFingerPlugin extends CordovaPlugin {
           LeftFinger = options.getInt("leftFingerCode");
           RightFinger = options.getInt("righFingerCode");
           Liveness = options.getBoolean("liveness");
-          Type = options.getBoolean("type");
+          Type = options.getInt("type");
           Log.d(TAG,"JsonOpened Left " + String.valueOf(LeftFinger) + "Right " + String.valueOf(RightFinger) );
       } catch (JSONException e) {
           callbackContext.error("Error encountered: " + e.getMessage());
