@@ -397,9 +397,9 @@ public class FourfingerActivity extends Activity {
 
     private void ConvertByteArray(byte[] byteResponse) {
 
-        String BinaryBase64ObjectObjectJPG;
-        String respuestaWSQ;
-        String minutia;
+        String BinaryBase64ObjectObjectJPG="";
+        String respuestaWSQ="";
+        String minutia="";
 
         try {
             JSONObject object = new JSONObject(new String(byteResponse));
