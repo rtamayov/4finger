@@ -441,13 +441,13 @@ public class FourfingerActivity extends Activity {
 
             
             
-            if (Type=0)
+            if (Type==0)
             {
                 respuestaWSQ = fingerImpressionImage.getString("BinaryBase64ObjectWSQ");
             }
 
 
-            if (Type=1)
+            if (Type==1)
             {
             String respuestaRAW = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
             int widthVeridium = fingerImpressionImage.getInt("Width");
