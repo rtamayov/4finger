@@ -3,11 +3,12 @@ function EntelFingerPlugin() {}
 
 // The function that passes work along to native shells
 // Message is a string, duration may be 'long' or 'short'
-EntelFingerPlugin.prototype.getwsq = function(righFingerCode, leftFingerCode, liveness, successCallback, errorCallback) {
+EntelFingerPlugin.prototype.getwsq = function(righFingerCode, leftFingerCode, liveness, type,successCallback, errorCallback) {
   var options = {};
   options.righFingerCode = righFingerCode;
   options.leftFingerCode = leftFingerCode;
   options.liveness = liveness;
+  options.type = type;
   cordova.exec(successCallback, errorCallback, 'EntelFingerPlugin', 'getwsq', [options]);
 }
 

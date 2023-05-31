@@ -37,12 +37,14 @@ public class EntelFingerPlugin extends CordovaPlugin {
       
       int LeftFinger;
       int RightFinger;
-    	boolean Liveness;
+      boolean Liveness;
+      int Type;
       try {
           JSONObject options = args.getJSONObject(0);
           LeftFinger = options.getInt("leftFingerCode");
           RightFinger = options.getInt("righFingerCode");
-          	Liveness = options.getBoolean("liveness");
+          Liveness = options.getBoolean("liveness");
+          Type = options.getBoolean("type");
           Log.d(TAG,"JsonOpened Left " + String.valueOf(LeftFinger) + "Right " + String.valueOf(RightFinger) );
       } catch (JSONException e) {
           callbackContext.error("Error encountered: " + e.getMessage());
@@ -53,7 +55,8 @@ public class EntelFingerPlugin extends CordovaPlugin {
       Intent getwsqIntent = new Intent(appCtx, FourfingerActivity.class);
       getwsqIntent.putExtra("LeftFinger", LeftFinger);
       getwsqIntent.putExtra("RightFinger", RightFinger);
-    	getwsqIntent.putExtra("Liveness", Liveness);
+      getwsqIntent.putExtra("Liveness", Liveness);
+      getwsqIntent.putExtra("Type", Type);
       cordova.startActivityForResult(this, getwsqIntent, BIOM_REQ_CODE);
       
       return true;
