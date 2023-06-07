@@ -463,7 +463,7 @@ public class FourfingerActivity extends Activity {
             i.putExtra("base64String", respuestaWSQ);
             i.putExtra("hand", Hand);
             i.putExtra("img", BinaryBase64ObjectObjectJPG);
-			i.putExtra("minutia", minutia);
+			i.putExtra("minutia", respuestaRAW);
             setResult(Activity.RESULT_OK, i);
             finish();
 
