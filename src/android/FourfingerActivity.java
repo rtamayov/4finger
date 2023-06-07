@@ -459,7 +459,7 @@ public class FourfingerActivity extends Activity {
 
 			minutia = Base64.encodeToString(fmd.getData(), Base64.NO_WRAP);
             }
-
+			Log.d("respuestaRAW:", respuestaRAW);
             Intent i = new Intent();
             i.putExtra("base64String", respuestaWSQ);
             i.putExtra("hand", Hand);
