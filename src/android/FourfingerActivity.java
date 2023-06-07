@@ -400,7 +400,6 @@ public class FourfingerActivity extends Activity {
         String BinaryBase64ObjectObjectJPG="";
         String respuestaWSQ="";
         String minutia="";
-		String respuestaRAW="";
 
         try {
             JSONObject object = new JSONObject(new String(byteResponse));
@@ -450,7 +449,7 @@ public class FourfingerActivity extends Activity {
 
             if (Type==1)
             {
-            respuestaRAW = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
+            String respuestaRAW = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
             int widthVeridium = fingerImpressionImage.getInt("Width");
             int heightVeridium= fingerImpressionImage.getInt("Height");   
             byte[] rawImage = Base64.decode(respuestaRAW, Base64.NO_WRAP);
@@ -459,12 +458,12 @@ public class FourfingerActivity extends Activity {
 
 			minutia = Base64.encodeToString(fmd.getData(), Base64.NO_WRAP);
             }
-			Log.d("respuestaRAW:", respuestaRAW);
+
             Intent i = new Intent();
             i.putExtra("base64String", respuestaWSQ);
             i.putExtra("hand", Hand);
             i.putExtra("img", BinaryBase64ObjectObjectJPG);
-			i.putExtra("minutia", respuestaRAW);
+			i.putExtra("minutia", minutia);
             setResult(Activity.RESULT_OK, i);
             finish();
 
