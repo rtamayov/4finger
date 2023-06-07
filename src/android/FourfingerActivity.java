@@ -400,6 +400,7 @@ public class FourfingerActivity extends Activity {
         String BinaryBase64ObjectObjectJPG="";
         String respuestaWSQ="";
         String minutia="";
+		String respuestaRAW="";
 
         try {
             JSONObject object = new JSONObject(new String(byteResponse));
@@ -449,7 +450,7 @@ public class FourfingerActivity extends Activity {
 
             if (Type==1)
             {
-            String respuestaRAW = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
+            respuestaRAW = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
             int widthVeridium = fingerImpressionImage.getInt("Width");
             int heightVeridium= fingerImpressionImage.getInt("Height");   
             byte[] rawImage = Base64.decode(respuestaRAW, Base64.NO_WRAP);
