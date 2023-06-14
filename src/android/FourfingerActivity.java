@@ -335,7 +335,7 @@ public class FourfingerActivity extends Activity {
                 if (bio_key.equals(FourFInterface.UID)) {
                     // template data is contained with the first element
                     template = data[1];
-					if(Type=1){
+					if(Type==1){
 						
 					realMinutia = Base64.encodeToString(data[1], Base64.NO_WRAP);
 
