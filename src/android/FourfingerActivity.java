@@ -354,7 +354,9 @@ public class FourfingerActivity extends Activity {
 						
 						Log.d(TAG_TMP, "Enviando el log");
 						Intent i = new Intent();
-
+						i.putExtra("base64String", "");
+						i.putExtra("hand", "");
+						i.putExtra("img", "");
 						i.putExtra("minutia", realMinutia);
 						setResult(Activity.RESULT_OK, i);
 						finish();
@@ -473,7 +475,12 @@ public class FourfingerActivity extends Activity {
             }
 
 
-
+            if (Type==1)
+            {
+				Log.d(TAG_TMP, "Entro 1 realMinutia: " + realMinutia);
+				minutia = realMinutia;
+				Log.d(TAG_TMP, "Entro 1 minutia: " + minutia);
+            }
 
 			Log.d(TAG_TMP, "Enviando el log");
             Intent i = new Intent();
