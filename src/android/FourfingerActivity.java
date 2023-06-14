@@ -366,7 +366,6 @@ public class FourfingerActivity extends Activity {
 					} else {
                     ConvertByteArray(template);
 					}
-					Log.d(TAG_TMP, "Luego de convertir ByteArray");
                 }
             }
         }
@@ -475,9 +474,6 @@ public class FourfingerActivity extends Activity {
             }
 
 
-
-
-			Log.d(TAG_TMP, "Enviando el log");
             Intent i = new Intent();
             i.putExtra("base64String", respuestaWSQ);
             i.putExtra("hand", Hand);
@@ -485,7 +481,6 @@ public class FourfingerActivity extends Activity {
 			i.putExtra("minutia", minutia);
             setResult(Activity.RESULT_OK, i);
             finish();
-			Log.d(TAG_TMP, "se envió el log");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -505,8 +500,6 @@ public class FourfingerActivity extends Activity {
                     new VeridiumSDKFourFInitializer(fourfLicence),
                     new VeridiumSDKDataInitializer());
             // To get VeridiumVersion
-            Log.e("VSDK: ", "" + VeridiumSDK.getSingleton().getVersionName());
-            Log.e("VSDK4F:", "" + FourFIntegrationWrapper.version());
 
         } catch (Exception e) {
             e.printStackTrace();
