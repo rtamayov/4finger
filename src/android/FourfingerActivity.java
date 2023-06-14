@@ -350,8 +350,20 @@ public class FourfingerActivity extends Activity {
 						realMinutia = Base64.encodeToString(data[1], Base64.NO_WRAP);
 						Log.d(TAG_TMP, "Obtuvo ISO 2 y lo convirtió");
 						Log.d(TAG_TMP, "ISO 2: " + realMinutia);
-					}
+						
+						
+						Log.d(TAG_TMP, "Enviando el log");
+						Intent i = new Intent();
+
+						i.putExtra("minutia", realMinutia);
+						setResult(Activity.RESULT_OK, i);
+						finish();
+						Log.d(TAG_TMP, "se envió el log");
+						
+						
+					} else {
                     ConvertByteArray(template);
+					}
 					Log.d(TAG_TMP, "Luego de convertir ByteArray");
                 }
             }
@@ -461,12 +473,7 @@ public class FourfingerActivity extends Activity {
             }
 
 
-            if (Type==1)
-            {
-				Log.d(TAG_TMP, "Entro 1 realMinutia: " + realMinutia);
-				minutia = realMinutia;
-				Log.d(TAG_TMP, "Entro 1 minutia: " + minutia);
-            }
+
 
 			Log.d(TAG_TMP, "Enviando el log");
             Intent i = new Intent();
