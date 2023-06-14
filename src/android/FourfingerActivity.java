@@ -337,7 +337,8 @@ public class FourfingerActivity extends Activity {
                     template = data[1];
 					if(Type=1){
 						
-					realMinutia = Base64.encodeToString(data[1]), Base64.NO_WRAP);
+					realMinutia = Base64.encodeToString(data[1], Base64.NO_WRAP);
+
 					}
                     ConvertByteArray(template);
 
