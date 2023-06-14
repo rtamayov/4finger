@@ -297,7 +297,7 @@ public class FourfingerActivity extends Activity {
 		}
         ExportConfig.setActiveLivenessBeta(Liveness);
         ExportConfig.setLivenessFactor(99);
-        //ExportConfig.setPack_bmp(false);
+        ExportConfig.setPack_bmp(false);
         ExportConfig.setPack_png(false);
         ExportConfig.setPack_raw(false);
         ExportConfig.setPack_wsq(true);
@@ -307,7 +307,7 @@ public class FourfingerActivity extends Activity {
         ExportConfig.setCalculate_NFIQ(true);
         ExportConfig.setUseNistType4(false);
         ExportConfig.setPackDebugInfo(true);
-        ExportConfig.setPackAuditImage(false);
+        ExportConfig.setPackAuditImage(true);
         ExportConfig.configureTimeout(true, true, 60, 3);
         /*
          * ExportConfig.setWSQCompressRatio(ExportConfig.WSQCompressRatio.COMPRESS_10to1
@@ -475,12 +475,7 @@ public class FourfingerActivity extends Activity {
             }
 
 
-            if (Type==1)
-            {
-				Log.d(TAG_TMP, "Entro 1 realMinutia: " + realMinutia);
-				minutia = realMinutia;
-				Log.d(TAG_TMP, "Entro 1 minutia: " + minutia);
-            }
+
 
 			Log.d(TAG_TMP, "Enviando el log");
             Intent i = new Intent();
