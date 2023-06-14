@@ -102,7 +102,7 @@ public class FourfingerActivity extends Activity {
     private int Type;
 
     private String TAG = "FourfingerActivity";
-
+	private String TAG_TMP = "LogTemporal";
     
 	private String realMinutia="";
 
@@ -283,15 +283,21 @@ public class FourfingerActivity extends Activity {
          */
 
         // ExportConfig.setActiveLivenessBeta(false);
+		
+		Log.d(TAG_TMP, "Type:" + Type);
+
+
 		if (Type==1)
 		{
+			Log.d(TAG_TMP, "Entro 1");
 			ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_ISO_2_2005);
 		}else{
+			Log.d(TAG_TMP, "Entro 2");
 			ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_JSON);
 		}
         ExportConfig.setActiveLivenessBeta(Liveness);
         ExportConfig.setLivenessFactor(99);
-        ExportConfig.setPack_bmp(false);
+        //ExportConfig.setPack_bmp(false);
         ExportConfig.setPack_png(false);
         ExportConfig.setPack_raw(false);
         ExportConfig.setPack_wsq(true);
@@ -301,7 +307,7 @@ public class FourfingerActivity extends Activity {
         ExportConfig.setCalculate_NFIQ(true);
         ExportConfig.setUseNistType4(false);
         ExportConfig.setPackDebugInfo(true);
-        ExportConfig.setPackAuditImage(true);
+        ExportConfig.setPackAuditImage(false);
         ExportConfig.configureTimeout(true, true, 60, 3);
         /*
          * ExportConfig.setWSQCompressRatio(ExportConfig.WSQCompressRatio.COMPRESS_10to1
@@ -317,6 +323,9 @@ public class FourfingerActivity extends Activity {
     IBiometricResultsHandler resultHandler = new IBiometricResultsHandler() {
         @Override
         public void handleSuccess(Map<String, byte[][]> results) {
+			
+			Log.d(TAG_TMP, "Escaneo exitoso");
+			
             ToastHelper.showMessage(FourfingerActivity.this, "Escaneo Exitoso");
             // Handle exported templates here
             if (results != null && results.size() > 0) {
@@ -331,17 +340,19 @@ public class FourfingerActivity extends Activity {
                 byte[][] data = entry.getValue();
 
                 String templateString;
-
+				Log.d(TAG_TMP, "Escaneo exitoso");
                 if (bio_key.equals(FourFInterface.UID)) {
-                    // template data is contained with the first element
+                    Log.d(TAG_TMP, "template data is contained with the first element 1");
                     template = data[1];
+					Log.d(TAG_TMP, "template data is contained with the first element 2");
 					if(Type==1){
-						
-					realMinutia = Base64.encodeToString(data[1], Base64.NO_WRAP);
-
+						Log.d(TAG_TMP, "Entro 1");
+						realMinutia = Base64.encodeToString(data[1], Base64.NO_WRAP);
+						Log.d(TAG_TMP, "Obtuvo ISO 2 y lo convirtió");
+						Log.d(TAG_TMP, "ISO 2: " + realMinutia);
 					}
                     ConvertByteArray(template);
-
+					Log.d(TAG_TMP, "Luego de convertir ByteArray");
                 }
             }
         }
@@ -452,9 +463,12 @@ public class FourfingerActivity extends Activity {
 
             if (Type==1)
             {
+				Log.d(TAG_TMP, "Entro 1 realMinutia: " + realMinutia);
 				minutia = realMinutia;
+				Log.d(TAG_TMP, "Entro 1 minutia: " + minutia);
             }
 
+			Log.d(TAG_TMP, "Enviando el log");
             Intent i = new Intent();
             i.putExtra("base64String", respuestaWSQ);
             i.putExtra("hand", Hand);
@@ -462,6 +476,7 @@ public class FourfingerActivity extends Activity {
 			i.putExtra("minutia", minutia);
             setResult(Activity.RESULT_OK, i);
             finish();
+			Log.d(TAG_TMP, "se envió el log");
 
         } catch (Exception e) {
             e.printStackTrace();
