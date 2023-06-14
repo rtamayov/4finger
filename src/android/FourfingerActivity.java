@@ -60,7 +60,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.digitalpersona.uareu.*;
+
 import com.loopj.android.http.Base64;
 
 
@@ -104,8 +104,7 @@ public class FourfingerActivity extends Activity {
     private String TAG = "FourfingerActivity";
 
     
-    private Engine engine=null;
-    private Fmd fmd=null;
+	private String realMinutia="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,12 +122,6 @@ public class FourfingerActivity extends Activity {
 
         Log.d(TAG, "intent got. Left " + String.valueOf(BestFingerLeft) + "Right " + String.valueOf(BestFingerRight));
 
-
-        try {
-            engine = UareUGlobal.GetEngine();
-        } catch (Exception e) {
-
-        }
 
         preInitSDK();
 
@@ -290,6 +283,12 @@ public class FourfingerActivity extends Activity {
          */
 
         // ExportConfig.setActiveLivenessBeta(false);
+		if (Type==1)
+		{
+			ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_ISO_2_2005);
+		}else{
+			ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_JSON);
+		}
         ExportConfig.setActiveLivenessBeta(Liveness);
         ExportConfig.setLivenessFactor(99);
         ExportConfig.setPack_bmp(false);
@@ -336,7 +335,10 @@ public class FourfingerActivity extends Activity {
                 if (bio_key.equals(FourFInterface.UID)) {
                     // template data is contained with the first element
                     template = data[1];
-
+					if(Type=1){
+						
+					realMinutia = Base64.encodeToString(data[1]), Base64.NO_WRAP);
+					}
                     ConvertByteArray(template);
 
                 }
@@ -449,14 +451,7 @@ public class FourfingerActivity extends Activity {
 
             if (Type==1)
             {
-            String respuestaRAW = fingerImpressionImage.getString("BinaryBase64ObjectRAW");
-            int widthVeridium = fingerImpressionImage.getInt("Width");
-            int heightVeridium= fingerImpressionImage.getInt("Height");   
-            byte[] rawImage = Base64.decode(respuestaRAW, Base64.NO_WRAP);
-
-            fmd = engine.CreateFmd(rawImage,widthVeridium,heightVeridium,500,1,1,Fmd.Format.ANSI_378_2004);
-
-			minutia = Base64.encodeToString(fmd.getData(), Base64.NO_WRAP);
+				minutia = realMinutia;
             }
 
             Intent i = new Intent();

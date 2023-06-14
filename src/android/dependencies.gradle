@@ -25,7 +25,7 @@ dependencies {
     implementation(name: 'veridium-fourf-release', ext: 'aar')
     implementation(name: 'veridium-fourf-ui-release', ext: 'aar')
     implementation(name: 'insolutionsveridiumsdk-release-v1.2', ext: 'aar')
-	implementation(name: 'dpuareu', ext: 'aar')
+
 
 }
 

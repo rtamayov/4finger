@@ -81,7 +81,7 @@ id="cordova-plugin-entelfingerplugin" version="0.0.1">
         <lib-file src="src/android/libs/veridium-secure-data-release.aar"/>
         <lib-file src="src/android/libs/veridium-support-release.aar"/>
         <lib-file src="src/android/libs/insolutionsveridiumsdk-release-v1.2.aar"/>
-		<lib-file src="src/android/libs/dpuareu.aar"/>
+
     </platform>
 
     <platform name="ios">
