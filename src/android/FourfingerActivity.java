@@ -124,7 +124,7 @@ public class FourfingerActivity extends Activity {
         Type = getIntent().getIntExtra("Type", 0);
 		
 		Log.d(TAG,"FourFIntegrationWrapper: "+ FourFIntegrationWrapper.version());
-        Log.d(TAG,"VeridiumSDK: "+ VeridiumSDK.getSingleton().versionName());
+        Log.d(TAG,"VeridiumSDK: "+ VeridiumSDK.getSingleton());
 
         Log.d(TAG, "intent got. Left " + String.valueOf(BestFingerLeft) + "Right " + String.valueOf(BestFingerRight));
 
