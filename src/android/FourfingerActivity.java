@@ -127,7 +127,6 @@ public class FourfingerActivity extends Activity {
 		 try {
 			Log.d(TAG,"FourFIntegrationWrapper: "+ FourFIntegrationWrapper.version());
 			Log.d(TAG,"VeridiumSDK: "+ VeridiumSDK.getSingleton());
-            return true;
         } catch (LicenseException e) {
             ToastHelper.showMessage(FourfingerActivity.this, "Licence is invalid!");
             e.printStackTrace();
