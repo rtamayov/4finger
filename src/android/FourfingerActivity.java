@@ -63,7 +63,7 @@ import androidx.core.content.ContextCompat;
 
 import com.loopj.android.http.Base64;
 
-import com.veridiumid.sdk.VeridiumSDK;
+
 import com.veridiumid.sdk.fourf.FourFIntegrationWrapper;
 
 
@@ -123,8 +123,16 @@ public class FourfingerActivity extends Activity {
         Liveness = getIntent().getBooleanExtra("Liveness", false);
         Type = getIntent().getIntExtra("Type", 0);
 		
-		Log.d(TAG,"FourFIntegrationWrapper: "+ FourFIntegrationWrapper.version());
-        Log.d(TAG,"VeridiumSDK: "+ VeridiumSDK.getSingleton());
+		
+		 try {
+			Log.d(TAG,"FourFIntegrationWrapper: "+ FourFIntegrationWrapper.version());
+			Log.d(TAG,"VeridiumSDK: "+ VeridiumSDK.getSingleton());
+            return true;
+        } catch (LicenseException e) {
+            ToastHelper.showMessage(FourfingerActivity.this, "Licence is invalid!");
+            e.printStackTrace();
+        }
+
 
         Log.d(TAG, "intent got. Left " + String.valueOf(BestFingerLeft) + "Right " + String.valueOf(BestFingerRight));
 
