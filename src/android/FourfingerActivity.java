@@ -63,6 +63,9 @@ import androidx.core.content.ContextCompat;
 
 import com.loopj.android.http.Base64;
 
+import com.veridiumid.sdk.VeridiumSDK;
+import com.veridiumid.sdk.fourf.FourFIntegrationWrapper;
+
 
 public class FourfingerActivity extends Activity {
 
@@ -119,6 +122,9 @@ public class FourfingerActivity extends Activity {
         BestFingerLeft = getIntent().getIntExtra("LeftFinger", 0);
         Liveness = getIntent().getBooleanExtra("Liveness", false);
         Type = getIntent().getIntExtra("Type", 0);
+		
+		Log.d(TAG,"FourFIntegrationWrapper: "+ FourFIntegrationWrapper.version());
+        Log.d(TAG,"VeridiumSDK: "+ VeridiumSDK.getSingleton().versionName);
 
         Log.d(TAG, "intent got. Left " + String.valueOf(BestFingerLeft) + "Right " + String.valueOf(BestFingerRight));
 
