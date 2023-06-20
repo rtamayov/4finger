@@ -126,7 +126,7 @@ public class FourfingerActivity extends Activity {
 		
 		 try {
 			Log.d(TAG,"FourFIntegrationWrapper: "+ FourFIntegrationWrapper.version());
-			Log.d(TAG,"VeridiumSDK: "+ VeridiumSDK.getSingleton());
+			Log.d(TAG,"VeridiumSDK V: "+ VeridiumSDK.getSingleton().versionName);
         } catch (Exception e) {
 
         }
