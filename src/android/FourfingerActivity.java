@@ -307,7 +307,7 @@ public class FourfingerActivity extends Activity {
 			Log.d(TAG_TMP, "Entro 2");
 			ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_JSON);
 		}
-        ExportConfig.setActiveLivenessBeta(Liveness);
+        //ExportConfig.setActiveLivenessBeta(Liveness);
         ExportConfig.setLivenessFactor(99);
         ExportConfig.setPack_bmp(false);
         ExportConfig.setPack_png(false);
@@ -318,7 +318,7 @@ public class FourfingerActivity extends Activity {
         ExportConfig.setUseLiveness(true);
         ExportConfig.setCalculate_NFIQ(true);
         ExportConfig.setUseNistType4(false);
-        ExportConfig.setPackDebugInfo(true);
+        //ExportConfig.setPackDebugInfo(true);
         ExportConfig.setPackAuditImage(true);
         ExportConfig.configureTimeout(true, 60, 3, false);
         /*
