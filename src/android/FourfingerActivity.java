@@ -320,7 +320,7 @@ public class FourfingerActivity extends Activity {
         ExportConfig.setUseNistType4(false);
         //ExportConfig.setPackDebugInfo(true);
         ExportConfig.setPackAuditImage(true);
-        ExportConfig.configureTimeout(true, 60, 3, false);
+        ExportConfig.configureTimeout(true, 20, 3, false);
         /*
          * ExportConfig.setWSQCompressRatio(ExportConfig.WSQCompressRatio.COMPRESS_10to1
          * );
