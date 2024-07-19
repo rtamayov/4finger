@@ -302,7 +302,7 @@ public class FourfingerActivity extends Activity {
 		if (Type==1)
 		{
 			Log.d(TAG_TMP, "Entro 1");
-			ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_ISO_2_2005);
+			ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_ISO_4_2005);
 		}else{
 			Log.d(TAG_TMP, "Entro 2");
 			ExportConfig.setFormat(IBiometricFormats.TemplateFormat.FORMAT_JSON);
