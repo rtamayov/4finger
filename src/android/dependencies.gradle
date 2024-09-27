@@ -8,14 +8,14 @@ repositories{
 dependencies {
     //TEST SI SE PUEDE CAMBIAR
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:support-media-compat:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+  	
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.media:media:1.7.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.12.0'
   	implementation 'com.google.android.gms:play-services-analytics:18.0.1'
-	implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'com.loopj.android:android-async-http:1.4.9'
 
     implementation(name: 'veridium-analytics-release', ext: 'aar')
     implementation(name: 'veridium-core-release', ext: 'aar')
@@ -24,17 +24,14 @@ dependencies {
     implementation(name: 'veridium-support-release', ext: 'aar')
     implementation(name: 'veridium-fourf-release', ext: 'aar')
     implementation(name: 'veridium-fourf-ui-release', ext: 'aar')
-    implementation(name: 'insolutionsveridiumsdk-release-v1.2', ext: 'aar')
 
+    implementation(name: 'insolutionsveridiumsdk-release-v1.2', ext: 'aar')
 
 }
 
 android {
-
     packagingOptions {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
     }
-	
 }
-

@@ -7,7 +7,7 @@ import org.apache.cordova.PluginResult;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.annotation.TargetApi;
 import android.content.Intent;
